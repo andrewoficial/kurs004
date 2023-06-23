@@ -1,0 +1,49 @@
+Ну оч жаль удалять, оставлю на память
+
+
+        /*
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("library");
+            EntityManager manager = emf.createEntityManager();
+            manager.getTransaction().begin();
+            manager.persist(recipient01);
+            manager.persist(sub02);
+            manager.getTransaction().commit();
+            manager.close();
+            emf.close();
+        } catch (Exception e) {
+            System.out.println("Ошибка инициализации соединения с б.д" + e.getMessage());
+        }
+         */
+
+
+/*
+        DatabaseHandler dbh = new DatabaseHandler();
+        dbh.prepareHandler();
+        dbh.getManager().publusher01().begin();
+        dbh.getManager().persist(recipient01);
+        dbh.getManager().persist(recipient02);
+        dbh.getManager().persist(recipient03);
+        dbh.getManager().persist(publisher01);
+        dbh.getManager().persist(publusher02);
+        dbh.getManager().persist(publusher03);
+        dbh.getManager().persist(publusher04);
+        dbh.getManager().persist(publusher05); //Проверить будет ли обновлен
+        dbh.getManager().persist(sub01);
+        dbh.getManager().persist(sub02);
+        dbh.getManager().getTransaction().commit();
+        dbh.closeResources();
+        System.out.println("Завершил первую передачу и закрыл сессии");
+
+        dbh.prepareHandler();
+        dbh.getManager().persist(recipient01);
+        dbh.getManager().getTransaction().commit();
+        dbh.closeResources();
+        System.exit(0);
+        //Проверка всяких операций
+        //System.out.println(manager.find(Recipient.class, "+79991112233").getEmail());
+        //recipient02.setEmail("newAvesome@mail.mail");
+        //manager.getTransaction().begin();
+        //manager.merge(recipient02);
+        //manager.getTransaction().commit();
+*/

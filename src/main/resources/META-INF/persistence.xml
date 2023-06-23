@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="3.0">
+    <persistence-unit name="library" transaction-type="RESOURCE_LOCAL">
+        <class>ru.itmo.kurs004.entity.Recipient</class>
+        <class>ru.itmo.kurs004.entity.Subscription</class>
+        <!--
+        <class>ru.itmo.kurs004.entity.Publication</class>
+
+
+        -->
+
+        <properties>
+            <!-- Используемый драйвер -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <!-- URL и база данных -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://arjuna.db.elephantsql.com/akhllvfb"/>
+            <!-- Логин пользователя базы данных -->
+            <property name="jakarta.persistence.jdbc.user" value="akhllvfb"/>
+            <!-- Пароль пользователя базы данных -->
+            <property name="jakarta.persistence.jdbc.password" value="wkTH9X-J-0Flz2KQVLRpZnMlnWmpsFDp"/>
+
+            <!-- Установка диалекта -->
+            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/> -->
+
+            <!-- Вывод SQL-запросов в консоль -->
+            <!--
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            -->
+
+            <!--  при каждом запуске таблицы будут удаляться и создаваться заново (drop-and-create)
+                             create, drop, drop-and-create, none  -->
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.c3p0.min_size" value="5"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+        </properties>
+    </persistence-unit>
+</persistence>
