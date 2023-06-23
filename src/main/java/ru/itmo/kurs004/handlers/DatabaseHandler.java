@@ -15,7 +15,6 @@ import ru.itmo.kurs004.entity.Subscription;
 import java.time.LocalDate;
 import java.util.*;
 
-import static ru.itmo.kurs004.Main.allocateTestingData;
 import static ru.itmo.kurs004.handlers.ServerHandler.sendGetRequest;
 import static ru.itmo.kurs004.specification.Specifications.PublicationSpecifications.*;
 
@@ -59,7 +58,6 @@ public class DatabaseHandler implements Runnable{
             boolean isInTransaction = true;
             synchronized (commandBuffer) {
                 if (commandBuffer.isEmpty()) {
-                    allocateTestingData = true;
                     continue;
                 }
                 EntityTransaction transaction = manager.getTransaction();
@@ -88,6 +86,9 @@ public class DatabaseHandler implements Runnable{
                 case PRINT_LINE:
                     System.out.println("Выполняю " + command.getType());
                     System.out.println(command.getArgument());
+                case MERGE_ENTITY:
+                    //System.out.println("Выполняю " + command.getType());
+                    //manager.merge((Publication)command.getArgument());
             }
 
             try {
@@ -99,6 +100,9 @@ public class DatabaseHandler implements Runnable{
 
     }
 
+    public void merge(Publication pbl){
+        manager.merge(pbl);
+    }
     public void addCommandToBuffer(DatabaseCommand.CommandType type, Object argument){
         synchronized (commandBuffer) {
             commandBuffer.addLast(new DatabaseCommand(type, argument));

@@ -4,6 +4,7 @@ public class DatabaseCommand {
     public enum CommandType {
         BEGIN_TRANSACTION,
         PERSIST_ENTITY,
+        MERGE_ENTITY,
         COMMIT_TRANSACTION,
         PRINT_LINE
     }

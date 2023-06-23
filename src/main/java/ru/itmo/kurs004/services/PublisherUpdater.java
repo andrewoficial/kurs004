@@ -4,6 +4,7 @@ package ru.itmo.kurs004.services;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import ru.itmo.kurs004.entity.Publication;
+import ru.itmo.kurs004.handlers.DatabaseCommand;
 import ru.itmo.kurs004.handlers.DatabaseHandler;
 
 import java.util.ArrayList;
@@ -65,10 +66,18 @@ public class PublisherUpdater implements Runnable {
 
                     if (dbh.searchByNumber(publisher.getCode()) != null) {
                         System.out.println(publisher.getCode() + " найден и будет обновлен");
+                        //dbh.addCommandToBuffer(DatabaseCommand.CommandType.BEGIN_TRANSACTION, null);
+                        dbh.merge(publisher);
+                        //dbh.addCommandToBuffer(DatabaseCommand.CommandType.COMMIT_TRANSACTION, null);
                         //manager.find(Publication.class, publisher.getCode()).setSubscriptionCost(publisher.getSubscriptionCost());
                     } else {
                         System.out.println(publisher.getCode() + " не найден и будет создан");
+                        /*
+                        dbh.addCommandToBuffer(DatabaseCommand.CommandType.BEGIN_TRANSACTION, publisher);
+                        dbh.addCommandToBuffer(DatabaseCommand.CommandType.PERSIST_ENTITY, publisher);
+                        dbh.addCommandToBuffer(DatabaseCommand.CommandType.COMMIT_TRANSACTION, null);
 
+                         */
                     }
                 }
             }

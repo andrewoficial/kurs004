@@ -21,7 +21,7 @@ import static ru.itmo.kurs004.handlers.ServerHandler.sendPostRequest;
 import static ru.itmo.kurs004.specification.Specifications.PublicationSpecifications.*;
 
 public class Main {
-    public static boolean allocateTestingData = false;
+    public static Set <Publication> publicationPool = new HashSet<>();
     public static void main(String[] args) throws InterruptedException {
         LocalDate date = LocalDate.now();
         Recipient recipient01 = new Recipient("Карпатов А. Ю.", "+79991112233", "email@mail.mail");
@@ -35,6 +35,7 @@ public class Main {
         //"number":"34776","title":"Забытый журнал","type":"MAGAZINE","price":420
         Subscription sub01 = new Subscription(3, date, recipient01, publusher01);
         Subscription sub02 = new Subscription(3, date, recipient01, publusher02);
+
 
         System.out.println("Завершено создание данных для тестирования");
 
