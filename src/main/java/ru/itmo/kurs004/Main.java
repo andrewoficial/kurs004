@@ -21,7 +21,7 @@ import static ru.itmo.kurs004.handlers.ServerHandler.sendPostRequest;
 import static ru.itmo.kurs004.specification.Specifications.PublicationSpecifications.*;
 
 public class Main {
-    public static Set <Publication> publicationPool = new HashSet<>();
+    public static Set <Publication> publicationPool = new HashSet<>(); //Не используется, но не уверен что и не будет
     public static void main(String[] args) throws InterruptedException {
         LocalDate date = LocalDate.now();
         Recipient recipient01 = new Recipient("Карпатов А. Ю.", "+79991112233", "email@mail.mail");
@@ -40,11 +40,11 @@ public class Main {
         System.out.println("Завершено создание данных для тестирования");
 
         DatabaseHandler dbh = DatabaseHandler.getInstance();
-        Thread thread = new Thread(dbh);
-        thread.join(); //Что бы не возникло проблем при первичной инициализации
+        Thread thread1 = new Thread(dbh);
+        //Что бы не возникло проблем при первичной инициализации
         //thread.setDaemon(true); //Что бы когда пользователь введет /exit сразу выйти. По хорошему надо давать время на
         //завершение транзакции и уточнять прервать сейчас или нет
-        thread.start();
+
         dbh.addCommandToBuffer(DatabaseCommand.CommandType.PRINT_LINE, "First part");
         dbh.addCommandToBuffer(DatabaseCommand.CommandType.BEGIN_TRANSACTION, null);
         dbh.addCommandToBuffer(DatabaseCommand.CommandType.PERSIST_ENTITY, recipient01);
@@ -62,12 +62,17 @@ public class Main {
         dbh.addCommandToBuffer(DatabaseCommand.CommandType.PERSIST_ENTITY, sub01);
         dbh.addCommandToBuffer(DatabaseCommand.CommandType.PERSIST_ENTITY, sub02);
         dbh.addCommandToBuffer(DatabaseCommand.CommandType.COMMIT_TRANSACTION, null);
+        thread1.start();
+        thread1.join();
 
-        //Разделяемся на потоки
-        thread.interrupt(); // Прерывание ожидания потока
 
         PublisherUpdater pbupdt = new PublisherUpdater(dbh);
         Thread thread2 = new Thread(pbupdt);
+        Thread thread3 = new Thread(dbh);
+
+
+        thread2.start();
+        thread3.start();
 
         Scanner sc = new Scanner(System.in);
         String input = "";
@@ -94,12 +99,11 @@ public class Main {
                 dbh.searchUsersSubscribeByNumber(input);
             }else if("/help".equalsIgnoreCase(input)){
                 System.out.println("/exit - выход из приложения \n" +
-                        "/search - поиск по номеру \n /list - вывод доступных по подписке \n" +
+                        "/search - поиск по номеру \n/list - вывод доступных по подписке \n" +
                         "/list/+7xxxXXXxxXX - поиск подписок по номеру телефона");
             }else if("/runTH2".equalsIgnoreCase(input)){
                 System.out.println("Нужно дождаться активного завершения первичной настройки и запустить поток");
-                thread2.run();
-                //ToDo: Нужен совет как этого избежать
+
             }
         }
     }

@@ -72,12 +72,12 @@ public class PublisherUpdater implements Runnable {
                         //manager.find(Publication.class, publisher.getCode()).setSubscriptionCost(publisher.getSubscriptionCost());
                     } else {
                         System.out.println(publisher.getCode() + " не найден и будет создан");
-                        /*
-                        dbh.addCommandToBuffer(DatabaseCommand.CommandType.BEGIN_TRANSACTION, publisher);
+                        dbh.addCommandToBuffer(DatabaseCommand.CommandType.PRINT_LINE, "Выполняю добавление [" + publisher.getTitle() + "]");
+                        dbh.addCommandToBuffer(DatabaseCommand.CommandType.BEGIN_TRANSACTION, null);
                         dbh.addCommandToBuffer(DatabaseCommand.CommandType.PERSIST_ENTITY, publisher);
                         dbh.addCommandToBuffer(DatabaseCommand.CommandType.COMMIT_TRANSACTION, null);
+                        dbh.run();
 
-                         */
                     }
                 }
             }

@@ -58,7 +58,8 @@ public class DatabaseHandler implements Runnable{
             boolean isInTransaction = true;
             synchronized (commandBuffer) {
                 if (commandBuffer.isEmpty()) {
-                    continue;
+
+                    break;
                 }
                 EntityTransaction transaction = manager.getTransaction();
                 isInTransaction = transaction.isActive();
